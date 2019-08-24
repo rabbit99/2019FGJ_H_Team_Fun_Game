@@ -23,12 +23,14 @@ namespace William
         private bool isHit = false;
 
         private Vector2 m_hit_pos;
-        private CircleCollider2D m_CircleCollider2D;
+        private CircleCollider2D m_hook_CircleCollider2D;
+        private CircleCollider2D m_player_CircleCollider2D;
         // Start is called before the first frame update
         void Start()
         {
-            m_CircleCollider2D = hookTransform.gameObject.GetComponent<CircleCollider2D>();
-            m_CircleCollider2D.enabled = false;
+            m_hook_CircleCollider2D = hookTransform.gameObject.GetComponent<CircleCollider2D>();
+            m_hook_CircleCollider2D.enabled = false;
+            m_player_CircleCollider2D = playerTransform.gameObject.GetComponent<CircleCollider2D>();
         }
 
         // Update is called once per frame
@@ -40,7 +42,7 @@ namespace William
             if (Input.GetKeyDown(KeyCode.F))
             {
                 isOut = true;
-                m_CircleCollider2D.enabled = true;
+                m_hook_CircleCollider2D.enabled = true;
             }
             
             
@@ -105,12 +107,13 @@ namespace William
             if (Vector3.Distance(hookTransform.position, hookObj.transform.position) > totalDistance)
             {
                 isOut = false;
-                m_CircleCollider2D.enabled = false;
+                m_hook_CircleCollider2D.enabled = false;
             }
             if (Vector3.Distance(playerTransform.position, m_hit_pos) < stopDistance)
             {
                 isHit = false;
-                m_CircleCollider2D.enabled = false;
+                m_hook_CircleCollider2D.enabled = false;
+                m_player_CircleCollider2D.isTrigger = false;
             }
         }
 
@@ -130,6 +133,7 @@ namespace William
             m_hit_pos = hit_pos;
             isHit = true;
             isOut = false;
+            m_player_CircleCollider2D.isTrigger = true;
         }
 
         #region Notification
