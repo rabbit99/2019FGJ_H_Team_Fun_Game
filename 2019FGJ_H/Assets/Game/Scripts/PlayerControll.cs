@@ -23,6 +23,8 @@ public class PlayerControll : MonoBehaviour
     public PlayerShoot m_PlayerShoot;
 
     private Animator tarAni;
+    public delegate bool PlayerMoveCondition();
+    public PlayerMoveCondition m_PlayerMoveCondition;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,9 @@ public class PlayerControll : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!m_PlayerMoveCondition())
+            return;
+
         switch (_MoveState)
         {
             case MoveState.idle:

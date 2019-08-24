@@ -9,4 +9,5 @@ public static class NotificationKeys
     public const string CanExitHome = "CanExitHome";
 
     //
+    public const string HitPlayer = "HitPlayer";
 }

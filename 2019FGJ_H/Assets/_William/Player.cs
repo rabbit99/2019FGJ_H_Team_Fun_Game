@@ -26,6 +26,9 @@ namespace William
         private CircleCollider2D m_hook_CircleCollider2D;
         private CircleCollider2D m_player_CircleCollider2D;
         public PlayerControll m_PlayerControll;
+
+        private bool HookisBack = true;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -33,6 +36,8 @@ namespace William
             m_hook_CircleCollider2D.enabled = false;
             m_player_CircleCollider2D = playerTransform.gameObject.GetComponent<CircleCollider2D>();
             m_PlayerControll.m_PlayerShoot = ShootHook;
+
+            m_PlayerControll.m_PlayerMoveCondition = CheckSootingState;
         }
 
         // Update is called once per frame
@@ -63,6 +68,10 @@ namespace William
                 {
                     hookTransform.Translate(0, -hookSpeed * Time.deltaTime, 0);
                     hookObj.SetPosition(1, hookTransform.localPosition);
+                }
+                else
+                {
+                    HookisBack = true;
                 }
             }
 
@@ -108,6 +117,7 @@ namespace William
             //Debug.Log("isHit Distance" + Vector3.Distance(playerTransform.position, m_hit_pos));
             if (Vector3.Distance(hookTransform.position, hookObj.transform.position) > totalDistance)
             {
+                Debug.Log("isOut = false;");
                 isOut = false;
                 m_hook_CircleCollider2D.enabled = false;
             }
@@ -142,26 +152,39 @@ namespace William
         {
             isOut = true;
             m_hook_CircleCollider2D.enabled = true;
+            HookisBack = false;
         }
+
+        private bool CheckSootingState()
+        {
+            return HookisBack;
+        }
+
+        private void BeHit(string result)
+        {
+            Debug.Log("BeHit = " + result);
+        }
+
 
         #region Notification
 
         void AddNotificationObserver()
         {
-            NotificationCenter.Default.AddObserver(this, NotificationKeys.TeleportTo);
+            NotificationCenter.Default.AddObserver(this, NotificationKeys.HitPlayer);
         }
-
+        
         void RemoveNotificationObserver()
         {
-            NotificationCenter.Default.RemoveObserver(this, NotificationKeys.TeleportTo);
+            NotificationCenter.Default.RemoveObserver(this, NotificationKeys.HitPlayer);
         }
 
         public void OnNotify(Notification _noti)
         {
-            if (_noti.name == NotificationKeys.TeleportTo)
+            if (_noti.name == NotificationKeys.HitPlayer)
             {
                 //TO DO
-                //TeleportTo
+                //HitPlayer 
+                BeHit((string)_noti.data);
             }
         }
         #endregion
