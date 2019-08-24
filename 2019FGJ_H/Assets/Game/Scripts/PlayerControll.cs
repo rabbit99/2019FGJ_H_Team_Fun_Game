@@ -32,12 +32,12 @@ public class PlayerControll : MonoBehaviour
             case MoveState.idle:
                 break;
             case MoveState.up:
-                transform.position += moveSpeed*transform.up * Time.deltaTime;
+                transform.position += moveSpeed*transform.up * Time.fixedDeltaTime;
                 if (targetObj)
                     targetObj.transform.position = transform.position;
                 break;
             case MoveState.down:
-                transform.localPosition -= moveSpeed*transform.up * Time.deltaTime;
+                transform.localPosition -= moveSpeed*transform.up * Time.fixedDeltaTime;
                 if(targetObj)
                     targetObj.transform.position = transform.position;
                 break;
@@ -49,10 +49,10 @@ public class PlayerControll : MonoBehaviour
             case RotateState.idle:
                 break;
             case RotateState.left:
-                transform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
+                transform.Rotate(0, 0, -rotateSpeed * Time.fixedDeltaTime);
                 break;
             case RotateState.right:
-                transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+                transform.Rotate(0, 0, rotateSpeed * Time.fixedDeltaTime);
                 break;
             default:
                 break;
@@ -79,6 +79,8 @@ public class PlayerControll : MonoBehaviour
                 break;
             case 5:
                 _RotateState = RotateState.idle;
+                break;
+            case 6:
                 break;
             default:
                 break;
