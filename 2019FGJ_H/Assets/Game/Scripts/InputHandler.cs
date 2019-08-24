@@ -56,6 +56,10 @@ public class InputHandler : MonoBehaviour
             {
                 actionEve[i - 1].Invoke(5);
             }
+            if(Input.GetButtonDown("shoot" + i.ToString()))
+            {
+                actionEve[i - 1].Invoke(6);
+            }
         }
     }
 }
