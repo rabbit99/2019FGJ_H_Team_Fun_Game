@@ -79,6 +79,8 @@ namespace William
             //将敌人够到身前后，放开钩子
             if (isStop) RealeaseChild();
         }
+        
+
         void checkCollider()
         {
             //对钩子进行球形检测，返回所有碰到或者在球范围内的碰撞体数组     
