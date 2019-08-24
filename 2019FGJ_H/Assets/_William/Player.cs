@@ -23,12 +23,16 @@ namespace William
         private bool isHit = false;
 
         private Vector2 m_hit_pos;
-        private CircleCollider2D m_CircleCollider2D;
+        private CircleCollider2D m_hook_CircleCollider2D;
+        private CircleCollider2D m_player_CircleCollider2D;
+        public PlayerControll m_PlayerControll;
         // Start is called before the first frame update
         void Start()
         {
-            m_CircleCollider2D = hookTransform.gameObject.GetComponent<CircleCollider2D>();
-            m_CircleCollider2D.enabled = false;
+            m_hook_CircleCollider2D = hookTransform.gameObject.GetComponent<CircleCollider2D>();
+            m_hook_CircleCollider2D.enabled = false;
+            m_player_CircleCollider2D = playerTransform.gameObject.GetComponent<CircleCollider2D>();
+            m_PlayerControll.m_PlayerShoot = ShootHook;
         }
 
         // Update is called once per frame
@@ -37,11 +41,11 @@ namespace William
             checkCollider();
             CheckLength();
 
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                isOut = true;
-                m_CircleCollider2D.enabled = true;
-            }
+            //if (Input.GetKeyDown(KeyCode.F))
+            //{
+            //    isOut = true;
+            //    m_hook_CircleCollider2D.enabled = true;
+            //}
             
             
 
@@ -79,9 +83,9 @@ namespace William
             //将敌人够到身前后，放开钩子
             if (isStop) RealeaseChild();
         }
-        
 
-        void checkCollider()
+
+        private void checkCollider()
         {
             //对钩子进行球形检测，返回所有碰到或者在球范围内的碰撞体数组     
             //注意将人称控制器及其子物体的Layer修改为不是Default的一个层，否则钩子会检测到自身的碰撞体
@@ -98,23 +102,24 @@ namespace William
             }
         }
 
-        void CheckLength()
+        private void CheckLength()
         {
             //Debug.Log("Distance" + Vector3.Distance(hookTransform.position, hookObj.transform.position));
             //Debug.Log("isHit Distance" + Vector3.Distance(playerTransform.position, m_hit_pos));
             if (Vector3.Distance(hookTransform.position, hookObj.transform.position) > totalDistance)
             {
                 isOut = false;
-                m_CircleCollider2D.enabled = false;
+                m_hook_CircleCollider2D.enabled = false;
             }
             if (Vector3.Distance(playerTransform.position, m_hit_pos) < stopDistance)
             {
                 isHit = false;
-                m_CircleCollider2D.enabled = false;
+                m_hook_CircleCollider2D.enabled = false;
+                m_player_CircleCollider2D.isTrigger = false;
             }
         }
 
-        void RealeaseChild()
+        private void RealeaseChild()
         {
             if (hookTransform.childCount > 0)
             {
@@ -130,6 +135,13 @@ namespace William
             m_hit_pos = hit_pos;
             isHit = true;
             isOut = false;
+            m_player_CircleCollider2D.isTrigger = true;
+        }
+
+        private void ShootHook()
+        {
+            isOut = true;
+            m_hook_CircleCollider2D.enabled = true;
         }
 
         #region Notification

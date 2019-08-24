@@ -24,5 +24,10 @@ public class Hook : MonoBehaviour
         {
             m_player.Hit(collision.transform.position);
         }
+        if (collision.tag == "Player")
+        {
+            //TO DO
+            //Attack this player
+        }
     }
 }
