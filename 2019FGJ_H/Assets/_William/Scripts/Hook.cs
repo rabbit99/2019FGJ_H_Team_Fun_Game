@@ -28,6 +28,7 @@ public class Hook : MonoBehaviour
         {
             //TO DO
             //Attack this player
+            NotificationCenter.Default.Post(this, NotificationKeys.HitPlayer, this.name+"1");
         }
     }
 }

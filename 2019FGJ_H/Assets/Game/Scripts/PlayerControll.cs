@@ -22,6 +22,9 @@ public class PlayerControll : MonoBehaviour
     public delegate void PlayerShoot();
     public PlayerShoot m_PlayerShoot;
 
+    public delegate bool PlayerMoveCondition();
+    public PlayerMoveCondition m_PlayerMoveCondition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +34,9 @@ public class PlayerControll : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!m_PlayerMoveCondition())
+            return;
+
         switch (_MoveState)
         {
             case MoveState.idle:
