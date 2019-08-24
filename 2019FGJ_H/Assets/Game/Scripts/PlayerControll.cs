@@ -15,8 +15,16 @@ public class PlayerControll : MonoBehaviour
     }
     public MoveState _MoveState;
     public RotateState _RotateState;
+    public GameObject targetObj;
     [System.NonSerialized]
     public float moveSpeed, rotateSpeed;
+
+    public delegate void PlayerShoot();
+    public PlayerShoot m_PlayerShoot;
+
+    public delegate bool PlayerMoveCondition();
+    public PlayerMoveCondition m_PlayerMoveCondition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,17 +32,24 @@ public class PlayerControll : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (!m_PlayerMoveCondition())
+            return;
+
         switch (_MoveState)
         {
             case MoveState.idle:
                 break;
             case MoveState.up:
-                transform.position += transform.up * Time.deltaTime;
+                transform.position += moveSpeed*transform.up * Time.fixedDeltaTime;
+                if (targetObj)
+                    targetObj.transform.position = transform.position;
                 break;
             case MoveState.down:
-                transform.localPosition -= transform.up * Time.deltaTime;
+                transform.localPosition -= moveSpeed*transform.up * Time.fixedDeltaTime;
+                if(targetObj)
+                    targetObj.transform.position = transform.position;
                 break;
             default:
                 break;
@@ -44,10 +59,10 @@ public class PlayerControll : MonoBehaviour
             case RotateState.idle:
                 break;
             case RotateState.left:
-                transform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
+                transform.Rotate(0, 0, -rotateSpeed * Time.fixedDeltaTime);
                 break;
             case RotateState.right:
-                transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+                transform.Rotate(0, 0, rotateSpeed * Time.fixedDeltaTime);
                 break;
             default:
                 break;
@@ -74,6 +89,13 @@ public class PlayerControll : MonoBehaviour
                 break;
             case 5:
                 _RotateState = RotateState.idle;
+                break;
+            case 6:
+                Debug.Log("shoot");
+                if(m_PlayerShoot != null)
+                {
+                    m_PlayerShoot();
+                }
                 break;
             default:
                 break;

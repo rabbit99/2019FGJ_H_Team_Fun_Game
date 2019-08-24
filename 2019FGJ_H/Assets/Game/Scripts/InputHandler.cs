@@ -13,8 +13,12 @@ public class InputHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        actionEve = new InputEvent[_PlayerControll.Count];
-        for (int i = 0; i < _PlayerControll.Count; i++)
+        if(inputNum> _PlayerControll.Count)
+        {
+            inputNum = _PlayerControll.Count;
+        }
+        actionEve = new InputEvent[inputNum];
+        for (int i = 0; i < inputNum; i++)
         {
             actionEve[i] = new InputEvent();
             _PlayerControll[i].moveSpeed = this.moveSpeed;
@@ -51,6 +55,11 @@ public class InputHandler : MonoBehaviour
             if (Input.GetAxisRaw("Rotate" + i.ToString()) == 0)
             {
                 actionEve[i - 1].Invoke(5);
+            }
+            if(Input.GetButtonDown("shoot" + i.ToString()))
+            {
+                print(1);
+                actionEve[i - 1].Invoke(6);
             }
         }
     }
