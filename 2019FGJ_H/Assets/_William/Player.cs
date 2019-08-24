@@ -81,7 +81,7 @@ namespace William
 
         void CheckLength()
         {
-            Debug.Log("Distance" + Vector3.Distance(hookTransform.position, hookObj.transform.position));
+            //Debug.Log("Distance" + Vector3.Distance(hookTransform.position, hookObj.transform.position));
             if (Vector3.Distance(hookTransform.position, hookObj.transform.position) > totalDistance)
             {
                 isOut = false;
