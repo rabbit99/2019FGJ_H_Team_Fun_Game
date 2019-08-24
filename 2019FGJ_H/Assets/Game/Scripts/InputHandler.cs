@@ -6,20 +6,24 @@ using UnityEngine.Events;
 public class InputHandler : MonoBehaviour
 {
     public int inputNum;
-    public InputEvent[] moveEve;
-    public PlayerControll[] _PlayerControll;
+    public InputEvent[] actionEve;
+    public List<PlayerControll> _PlayerControll = new List<PlayerControll>();
     public float moveSpeed;
     public float rotateSpeed;
     // Start is called before the first frame update
     void Start()
     {
-        moveEve = new InputEvent[_PlayerControll.Length];
-        for (int i = 0; i < _PlayerControll.Length; i++)
+        if(inputNum> _PlayerControll.Count)
         {
-            moveEve[i] = new InputEvent();
+            inputNum = _PlayerControll.Count;
+        }
+        actionEve = new InputEvent[inputNum];
+        for (int i = 0; i < inputNum; i++)
+        {
+            actionEve[i] = new InputEvent();
             _PlayerControll[i].moveSpeed = this.moveSpeed;
             _PlayerControll[i].rotateSpeed = this.rotateSpeed;
-            moveEve[i].AddListener(_PlayerControll[i].moveCall);
+            actionEve[i].AddListener(_PlayerControll[i].moveCall);
         }
     }
 
@@ -30,27 +34,27 @@ public class InputHandler : MonoBehaviour
         {
             if(Input.GetAxisRaw("Move" + i.ToString()) > 0)
             {
-                moveEve[i - 1].Invoke(0);
+                actionEve[i - 1].Invoke(0);
             }
             if (Input.GetAxisRaw("Move" + i.ToString()) < 0)
             {
-                moveEve[i - 1].Invoke(1);
+                actionEve[i - 1].Invoke(1);
             }
             if (Input.GetAxisRaw("Move" + i.ToString()) == 0)
             {
-                moveEve[i - 1].Invoke(4);
+                actionEve[i - 1].Invoke(4);
             }
             if (Input.GetAxisRaw("Rotate" + i.ToString()) > 0)
             {
-                moveEve[i - 1].Invoke(2);
+                actionEve[i - 1].Invoke(2);
             }
             if (Input.GetAxisRaw("Rotate" + i.ToString()) < 0)
             {
-                moveEve[i - 1].Invoke(3);
+                actionEve[i - 1].Invoke(3);
             }
             if (Input.GetAxisRaw("Rotate" + i.ToString()) == 0)
             {
-                moveEve[i - 1].Invoke(5);
+                actionEve[i - 1].Invoke(5);
             }
         }
     }

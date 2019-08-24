@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerControll : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class PlayerControll : MonoBehaviour
     }
     public MoveState _MoveState;
     public RotateState _RotateState;
-    public float moveSpeed;
-    public float rotateSpeed;
+    public GameObject targetObj;
+    [System.NonSerialized]
+    public float moveSpeed, rotateSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +32,14 @@ public class PlayerControll : MonoBehaviour
             case MoveState.idle:
                 break;
             case MoveState.up:
-                transform.position += transform.up * Time.deltaTime;
+                transform.position += moveSpeed*transform.up * Time.deltaTime;
+                if (targetObj)
+                    targetObj.transform.position = transform.position;
                 break;
             case MoveState.down:
-                transform.localPosition -= transform.up * Time.deltaTime;
+                transform.localPosition -= moveSpeed*transform.up * Time.deltaTime;
+                if(targetObj)
+                    targetObj.transform.position = transform.position;
                 break;
             default:
                 break;
