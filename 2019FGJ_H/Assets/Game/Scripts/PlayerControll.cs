@@ -43,10 +43,10 @@ public class PlayerControll : MonoBehaviour
             case RotateState.idle:
                 break;
             case RotateState.left:
-                transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+                transform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
                 break;
             case RotateState.right:
-                transform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
+                transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
                 break;
             default:
                 break;

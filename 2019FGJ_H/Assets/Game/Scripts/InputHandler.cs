@@ -8,6 +8,8 @@ public class InputHandler : MonoBehaviour
     public int inputNum;
     public InputEvent[] moveEve;
     public PlayerControll[] _PlayerControll;
+    public float moveSpeed;
+    public float rotateSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,8 @@ public class InputHandler : MonoBehaviour
         for (int i = 0; i < _PlayerControll.Length; i++)
         {
             moveEve[i] = new InputEvent();
+            _PlayerControll[i].moveSpeed = this.moveSpeed;
+            _PlayerControll[i].rotateSpeed = this.rotateSpeed;
             moveEve[i].AddListener(_PlayerControll[i].moveCall);
         }
     }
