@@ -41,7 +41,7 @@ public class ModifyValueBase : MonoBehaviour
 [System.Flags]
 public enum ModifyValueEnum
 {
-    Speed   = 1,
-    Hp      = 2,
-    ATK     = 4,
+    MoveSpeed   = 1,
+    RopeSpeed      = 2,
+    RopeLenght     = 4,
 }
