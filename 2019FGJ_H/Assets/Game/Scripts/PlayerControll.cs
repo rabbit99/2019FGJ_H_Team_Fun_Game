@@ -18,6 +18,10 @@ public class PlayerControll : MonoBehaviour
     public GameObject targetObj;
     [System.NonSerialized]
     public float moveSpeed, rotateSpeed;
+
+    public delegate void PlayerShoot();
+    public PlayerShoot m_PlayerShoot;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,6 +85,11 @@ public class PlayerControll : MonoBehaviour
                 _RotateState = RotateState.idle;
                 break;
             case 6:
+                Debug.Log("shoot");
+                if(m_PlayerShoot != null)
+                {
+                    m_PlayerShoot();
+                }
                 break;
             default:
                 break;
