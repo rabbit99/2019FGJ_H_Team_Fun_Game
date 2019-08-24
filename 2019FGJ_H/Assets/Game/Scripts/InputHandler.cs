@@ -13,8 +13,12 @@ public class InputHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        actionEve = new InputEvent[_PlayerControll.Count];
-        for (int i = 0; i < _PlayerControll.Count; i++)
+        if(inputNum> _PlayerControll.Count)
+        {
+            inputNum = _PlayerControll.Count;
+        }
+        actionEve = new InputEvent[inputNum];
+        for (int i = 0; i < inputNum; i++)
         {
             actionEve[i] = new InputEvent();
             _PlayerControll[i].moveSpeed = this.moveSpeed;

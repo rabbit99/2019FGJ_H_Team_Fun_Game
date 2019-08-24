@@ -15,6 +15,7 @@ public class PlayerControll : MonoBehaviour
     }
     public MoveState _MoveState;
     public RotateState _RotateState;
+    public GameObject targetObj;
     [System.NonSerialized]
     public float moveSpeed, rotateSpeed;
     // Start is called before the first frame update
@@ -31,10 +32,14 @@ public class PlayerControll : MonoBehaviour
             case MoveState.idle:
                 break;
             case MoveState.up:
-                transform.position += transform.up * Time.deltaTime;
+                transform.position += moveSpeed*transform.up * Time.deltaTime;
+                if (targetObj)
+                    targetObj.transform.position = transform.position;
                 break;
             case MoveState.down:
-                transform.localPosition -= transform.up * Time.deltaTime;
+                transform.localPosition -= moveSpeed*transform.up * Time.deltaTime;
+                if(targetObj)
+                    targetObj.transform.position = transform.position;
                 break;
             default:
                 break;
