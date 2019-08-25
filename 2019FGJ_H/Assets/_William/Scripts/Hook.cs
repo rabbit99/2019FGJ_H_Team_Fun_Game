@@ -28,8 +28,9 @@ public class Hook : MonoBehaviour
         {
             //TO DO
             //Attack this player
-            Debug.Log("打到 player "+ collision.name);
-            NotificationCenter.Default.Post(this, NotificationKeys.HitPlayer, collision.name);
+            //Debug.Log("打到 player "+ collision.name);
+            if(collision.name != m_player.playerTransform.gameObject.name)
+            NotificationCenter.Default.Post(this, NotificationKeys.HitPlayer, m_player.playerTransform.gameObject.name + "/" + collision.name);
         }
     }
 }

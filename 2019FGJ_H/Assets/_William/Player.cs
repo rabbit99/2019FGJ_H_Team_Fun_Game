@@ -176,8 +176,15 @@ namespace William
 
         private void BeHit(string result)
         {
-            Debug.Log("BeHit = " + result);
-            NotificationCenter.Default.Post(this, NotificationKeys.GameOver, result);
+            string[] str_splitcontext = result.Split('/');
+
+
+
+            if (str_splitcontext[0] != playerTransform.gameObject.name)
+            {
+                Debug.Log("BeHit = " + result);
+                NotificationCenter.Default.Post(this, NotificationKeys.GameOver, str_splitcontext[0]);
+            }
         }
 
 
@@ -205,7 +212,7 @@ namespace William
             {
                 //TO DO
                 //HitPlayer 
-                Debug.Log("HitPlayer");
+                //Debug.Log("HitPlayer");
                 BeHit((string)_noti.data);
             }
             if (_noti.name == "MoveSpeed")
