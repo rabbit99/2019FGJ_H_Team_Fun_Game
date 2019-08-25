@@ -11,6 +11,14 @@ public class GameManager : MonoBehaviour, INotification
 
     private bool flag_over = false;
 
+    public GameObject player1;
+    public GameObject player2;
+    public GameObject player1ani;
+    public GameObject player2ani;
+
+    public Transform player1Transform;
+    public Transform player2Transform;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +29,20 @@ public class GameManager : MonoBehaviour, INotification
     // Update is called once per frame
     void Update()
     {
-        
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //    Reset_flag_over();
     }
 
     public void Reset_flag_over()
     {
         flag_over = false;
+
+        player1.transform.localPosition = player1Transform.localPosition;
+        player2.transform.localPosition = player2Transform.localPosition;
+        Debug.Log("player1.transform.localPosition" + player1.transform.localPosition);
+        Debug.Log("player1Transform.localPosition" + player1Transform.localPosition);
+        player1ani.transform.localPosition = player1Transform.localPosition;
+        player2ani.transform.localPosition = player2Transform.localPosition;
     }
 
     #region Notification
