@@ -8,6 +8,8 @@ public class GameOverUI : MonoBehaviour
     public Text winner;
     public GameObject WinA;
     public GameObject WinB;
+    public ThankMessage m_ThankMessage;
+    public GameObject Body;
 
     // Start is called before the first frame update
     void Start()
@@ -34,5 +36,13 @@ public class GameOverUI : MonoBehaviour
                 WinB.SetActive(true);
                 break;
         }
+        StartCoroutine(ShowThankMessage());
+    }
+
+    IEnumerator ShowThankMessage()
+    {
+        yield return new WaitForSeconds(3);
+        m_ThankMessage.gameObject.SetActive(true);
+        Body.SetActive(false);
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour, INotification
 {
     public GameOverUI GameOverUI;
+    public ThankMessage m_ThankMessage;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour, INotification
                 GameOverUI.gameObject.SetActive(true);
                 GameOverUI.SetWinnerText((string)_noti.data);
             }
+            m_ThankMessage.GetRandomThankMessage();
         }
     }
     #endregion
