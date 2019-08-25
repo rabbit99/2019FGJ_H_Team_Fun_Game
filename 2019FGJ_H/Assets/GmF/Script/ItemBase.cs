@@ -31,8 +31,9 @@ public class ItemBase : TriggerBase
        
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
         CheckLife();
         overLifeTime += Time.deltaTime;
     }
@@ -45,16 +46,27 @@ public class ItemBase : TriggerBase
         }
         if (overLifeTime > LifeTime)
         {
-            if (ItemManager.Instance != null)
-            {
-                ItemManager.Instance.aliveItems.Remove(this);
-            }
-            Destroy(gameObject);
-
-            if(OnDeath != null)
-            {
-                OnDeath.Invoke(this);
-            }
+            Death();
         }
+    }
+
+    void Death()
+    {
+        if (ItemManager.Instance != null)
+        {
+            ItemManager.Instance.aliveItems.Remove(this);
+        }
+        Destroy(gameObject);
+
+        if (OnDeath != null)
+        {
+            OnDeath.Invoke(this);
+        }
+    }
+
+    public override void OnTrigger()
+    {
+        base.OnTrigger();
+        Death();
     }
 }
