@@ -222,17 +222,20 @@ namespace William
                 //增加移動速度
                 //PlayerControll 去加速
                 Debug.Log("吃到加速");
-                m_PlayerControll.moveSpeed += 50;
+                m_PlayerControll.moveSpeed += (float)_noti.data;
             }
             if (_noti.name == "RopeSpeed")
             {
                 //TO DO
                 //RopeSpeed
+                hookSpeed += (float)_noti.data;
             }
             if (_noti.name == "RopeLenght")
             {
                 //TO DO
                 //RopeLenght
+
+            totalDistance += (float)_noti.data;
             }
         }
         #endregion
