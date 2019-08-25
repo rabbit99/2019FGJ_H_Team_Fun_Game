@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+/* 先註解掉Animator，會報Null reference */
 public class PlayerControll : MonoBehaviour
 {
     public enum MoveState
@@ -70,11 +70,11 @@ public class PlayerControll : MonoBehaviour
                     targetObj.transform.position = transform.position;
                     if (transform.rotation.z > 0 && transform.rotation.z <= 180)
                     {
-                        tarAni.Play("run1");
+                        // tarAni.Play("run1");
                     }
                     else if (transform.rotation.z <= 0 && transform.rotation.z > -180)
                     {
-                        tarAni.Play("run2");
+                        // tarAni.Play("run2");
                     }
                 }
                 break;
@@ -119,7 +119,7 @@ public class PlayerControll : MonoBehaviour
                 break;
             case 6:
                 Debug.Log("shoot");
-                if(m_PlayerShoot != null)
+                if (m_PlayerShoot != null)
                 {
                     m_PlayerShoot();
                 }

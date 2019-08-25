@@ -8,15 +8,25 @@ public class ItemManager : MonoBehaviour
 
     public List<ItemBase> SampleItems = new List<ItemBase>();
 
+    [HideInInspector]
     public List<ItemBase> aliveItems = new List<ItemBase>();
 
     public List<ItemPoint> ItemPoints = new List<ItemPoint>();
-    ItemPoint lastPutItemPoint = null;
 
     public int MaxItemCount = 2;
-    public float CreateItemDurateTime = 10;
+    public float CreateItemIntervalTime = 10;
+    public float CreateItemIntervalTimeRadomRange = 10;
+    private float NextCreateItemIntervalTime = 0;
     float lastCreateItmTime = 0;
-    public bool FirstCeateItem;
+    public bool StartPlayCeateItem;
+    public int StartPlayeCreateItemAmount = 1;
+    public AudioClip BasicGetItmeAudioClip;
+    public AudioClip BasicCreateItemAudioClip;
+
+    [HideInInspector]
+    public int CreateItemCount = 0;
+
+    public 
 
     void Awake()
     {
@@ -27,6 +37,7 @@ public class ItemManager : MonoBehaviour
         }
 
         RegistItemMsg();
+        NextCreateItemIntervalTime = CreateItemIntervalTime + Random.Range(0, CreateItemIntervalTimeRadomRange);
     }
 
     private void Update()
@@ -46,12 +57,12 @@ public class ItemManager : MonoBehaviour
             return;
         }
 
-        if (lastCreateItmTime == 0 && FirstCeateItem)
+        if (lastCreateItmTime == 0 && StartPlayCeateItem && CreateItemCount < StartPlayeCreateItemAmount)
         {
             CreateItem();
         }
 
-        if (Time.time - lastCreateItmTime > CreateItemDurateTime)
+        if (Time.time - lastCreateItmTime > NextCreateItemIntervalTime)
         {
             CreateItem();
         }
@@ -68,6 +79,11 @@ public class ItemManager : MonoBehaviour
         ItemPoint newPoint = tmpItemPoint[Random.Range(0, tmpItemPoint.Count)];
 
         ItemBase sampleItem = SampleItems[Random.Range(0, SampleItems.Count)];
+
+        CreateItemCount++;
+        lastCreateItmTime = Time.time;
+        NextCreateItemIntervalTime = CreateItemIntervalTime + Random.Range(0, CreateItemIntervalTimeRadomRange);
+
         newPoint.CreateItem(sampleItem);
     }
 
@@ -94,24 +110,4 @@ public class ItemManager : MonoBehaviour
             Debug.Log("ItemManager.cs Get item msg: name[" + _noti.name + "], " + "data[" + _noti.data.ToString() + "], ");
         }
     }
-
-    //Vector3 RandomCreateItemPos()
-    //{
-    //    if(ItemPoints.Count == 0)
-    //    {
-    //        return Vector3.zero;
-    //    }
-
-    //    if(ItemPoints.Count == 1)
-    //    {
-    //        lastPutItemPoint = ItemPoints[0];
-    //        return lastPutItemPoint.transform.position;
-    //    }
-
-    //    List<ItemPoint> tmpItemPoints = ItemPoints.FindAll(e => e != lastPutItemPoint);
-
-    //    lastPutItemPoint = tmpItemPoints[Random.Range(0, tmpItemPoints.Count)];
-
-    //    return lastPutItemPoint.transform.position;
-    //}
 }
