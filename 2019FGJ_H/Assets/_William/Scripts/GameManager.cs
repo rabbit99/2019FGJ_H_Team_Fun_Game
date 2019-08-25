@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour, INotification
     public GameOverUI GameOverUI;
     public ThankMessage m_ThankMessage;
 
+    private bool flag_over = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,11 @@ public class GameManager : MonoBehaviour, INotification
     void Update()
     {
         
+    }
+
+    public void Reset_flag_over()
+    {
+        flag_over = false;
     }
 
     #region Notification
@@ -38,6 +45,11 @@ public class GameManager : MonoBehaviour, INotification
     {
         if (_noti.name == NotificationKeys.GameOver)
         {
+            if (flag_over)
+                return;
+
+            flag_over = true;
+
             //TO DO
             Debug.Log("GameOver " + (string)_noti.data);
             if(GameOverUI != null)
