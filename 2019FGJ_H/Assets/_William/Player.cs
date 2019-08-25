@@ -26,8 +26,12 @@ namespace William
         private CircleCollider2D m_hook_CircleCollider2D;
         private CircleCollider2D m_player_CircleCollider2D;
         public PlayerControll m_PlayerControll;
+        public GameObject PlayerBody;
 
         private bool HookisBack = true;
+
+        // Hook sound effect - "POKA"
+        HookSoundEffect hookSoundEffect;
 
         // Start is called before the first frame update
         void Start()
@@ -38,6 +42,8 @@ namespace William
             m_PlayerControll.m_PlayerShoot = ShootHook;
 
             m_PlayerControll.m_PlayerMoveCondition = CheckSootingState;
+
+            hookSoundEffect = GetComponent<HookSoundEffect>();
         }
 
         // Update is called once per frame
@@ -60,6 +66,8 @@ namespace William
                 //Debug.Log("test");
                 hookTransform.Translate(0, hookSpeed * Time.deltaTime, 0);
                 hookObj.SetPosition(1, hookTransform.localPosition);
+
+                
             }
             //收回钩子
             else
@@ -79,6 +87,7 @@ namespace William
             {
                 //playerTransform.Translate(0, hookSpeed* Time.deltaTime, 0);
                 playerTransform.transform.position = Vector3.Lerp(playerTransform.transform.position, m_hit_pos, pull_speed);
+                PlayerBody.transform.position = Vector3.Lerp(playerTransform.transform.position, m_hit_pos, pull_speed);
                 hookObj.SetPosition(1, hookTransform.localPosition);
             }
 
@@ -146,6 +155,8 @@ namespace William
             isHit = true;
             isOut = false;
             m_player_CircleCollider2D.isTrigger = true;
+            if (hookSoundEffect != null)
+                hookSoundEffect.PlayRandomWhenHit();
         }
 
         private void ShootHook()
@@ -153,6 +164,8 @@ namespace William
             isOut = true;
             m_hook_CircleCollider2D.enabled = true;
             HookisBack = false;
+            if (hookSoundEffect != null)
+                hookSoundEffect.PlayRandomWhenThrow();
         }
 
         private bool CheckSootingState()
@@ -172,11 +185,17 @@ namespace William
         void AddNotificationObserver()
         {
             NotificationCenter.Default.AddObserver(this, NotificationKeys.HitPlayer);
+            NotificationCenter.Default.AddObserver(this, "MoveSpeed");
+            NotificationCenter.Default.AddObserver(this, "RopeSpeed");
+            NotificationCenter.Default.AddObserver(this, "RopeLenght");
         }
         
         void RemoveNotificationObserver()
         {
             NotificationCenter.Default.RemoveObserver(this, NotificationKeys.HitPlayer);
+            NotificationCenter.Default.RemoveObserver(this, "MoveSpeed");
+            NotificationCenter.Default.RemoveObserver(this, "RopeSpeed");
+            NotificationCenter.Default.RemoveObserver(this, "RopeLenght");
         }
 
         public void OnNotify(Notification _noti)
@@ -186,6 +205,23 @@ namespace William
                 //TO DO
                 //HitPlayer 
                 BeHit((string)_noti.data);
+            }
+            if (_noti.name == "MoveSpeed")
+            {
+                //TO DO
+                //MoveSpeed
+                //增加移動速度
+                //PlayerControll 去加速
+            }
+            if (_noti.name == "RopeSpeed")
+            {
+                //TO DO
+                //RopeSpeed
+            }
+            if (_noti.name == "RopeLenght")
+            {
+                //TO DO
+                //RopeLenght
             }
         }
         #endregion
