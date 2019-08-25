@@ -83,25 +83,27 @@ public class ItemBase : TriggerBase
 
     void PlayGetItemAudio()
     {
-        if (ItemAudioSource == null)
-        {
-            return;
-        }
+        NotificationCenter.Default.Post(gameObject, NotificationKeys.AudioEvnet, "GetItem");
 
-        if (GetItemAudioClip != null)
-        {
-            ItemAudioSource.clip = GetItemAudioClip;
-        }
-        else if (ItemManager.Instance != null && ItemManager.Instance.BasicGetItmeAudioClip != null)
-        {
-            ItemAudioSource.clip = ItemManager.Instance.BasicGetItmeAudioClip;
-        }
-        else
-        {
-            return;
-        }
+        //if (ItemAudioSource == null)
+        //{
+        //    return;
+        //}
 
-        ItemAudioSource.Play();
+        //if (GetItemAudioClip != null)
+        //{
+        //    ItemAudioSource.clip = GetItemAudioClip;
+        //}
+        //else if (ItemManager.Instance != null && ItemManager.Instance.BasicGetItmeAudioClip != null)
+        //{
+        //    ItemAudioSource.clip = ItemManager.Instance.BasicGetItmeAudioClip;
+        //}
+        //else
+        //{
+        //    return;
+        //}
+
+        //ItemAudioSource.Play();
     }
 
     void PlayCreateItemAudio()
