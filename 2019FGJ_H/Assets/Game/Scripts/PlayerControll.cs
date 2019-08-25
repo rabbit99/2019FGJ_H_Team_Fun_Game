@@ -55,7 +55,6 @@ public class PlayerControll : MonoBehaviour
                 transform.position += moveSpeed*transform.up * Time.fixedDeltaTime;
                 if (targetObj)
                 {
-                    targetObj.transform.position = transform.position;
                     if (transform.rotation.eulerAngles.z >= 0&& transform.rotation.eulerAngles.z < 180)
                     {
                         tarAni.Play("run1");
@@ -70,7 +69,6 @@ public class PlayerControll : MonoBehaviour
                 transform.localPosition -= moveSpeed*transform.up * Time.fixedDeltaTime;
                 if (targetObj)
                 {
-                    targetObj.transform.position = transform.position;
                     if (transform.rotation.z > 0 && transform.rotation.z <= 180)
                     {
                         tarAni.Play("run1");
@@ -97,6 +95,8 @@ public class PlayerControll : MonoBehaviour
             default:
                 break;
         }
+        if (targetObj)
+            targetObj.transform.position = transform.position;
     }
     public void moveCall(int moveState)
     {
