@@ -77,8 +77,8 @@ public class ItemBase : TriggerBase
     public override void OnTrigger()
     {
         base.OnTrigger();
-        Death();
         PlayGetItemAudio();
+        Death();
     }
 
     void PlayGetItemAudio()
