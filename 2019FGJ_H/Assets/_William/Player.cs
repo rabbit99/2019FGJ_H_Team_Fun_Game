@@ -155,8 +155,8 @@ namespace William
             isHit = true;
             isOut = false;
             m_player_CircleCollider2D.isTrigger = true;
-
-            hookSoundEffect.PlayRandomWhenHit();
+            if (hookSoundEffect != null)
+                hookSoundEffect.PlayRandomWhenHit();
         }
 
         private void ShootHook()
@@ -164,8 +164,8 @@ namespace William
             isOut = true;
             m_hook_CircleCollider2D.enabled = true;
             HookisBack = false;
-
-            hookSoundEffect.PlayRandomWhenThrow();
+            if (hookSoundEffect != null)
+                hookSoundEffect.PlayRandomWhenThrow();
         }
 
         private bool CheckSootingState()
