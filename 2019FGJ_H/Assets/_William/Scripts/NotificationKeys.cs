@@ -8,6 +8,9 @@ public static class NotificationKeys
     public const string TeleportTo = "TeleportTo";
     public const string CanExitHome = "CanExitHome";
 
-    //
+    //Game Play
     public const string HitPlayer = "HitPlayer";
+    public const string GameOver = "GameOver";
+
+    public const string AudioEvnet = "AudioEvent";
 }
