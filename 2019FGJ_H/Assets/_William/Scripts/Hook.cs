@@ -19,7 +19,7 @@ public class Hook : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("OnTriggerEnter2D " + collision.name + "  "+ collision.transform.position);
+        //Debug.Log("OnTriggerEnter2D " + collision.name + "  "+ collision.transform.position);
         if(collision.tag == "wood") 
         {
             m_player.Hit(collision.transform.position);
@@ -28,7 +28,8 @@ public class Hook : MonoBehaviour
         {
             //TO DO
             //Attack this player
-            NotificationCenter.Default.Post(this, NotificationKeys.HitPlayer, this.name+"1");
+            Debug.Log("打到 player "+ collision.name);
+            NotificationCenter.Default.Post(this, NotificationKeys.HitPlayer, collision.name);
         }
     }
 }

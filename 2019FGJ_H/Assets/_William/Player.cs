@@ -36,6 +36,7 @@ namespace William
         // Start is called before the first frame update
         void Start()
         {
+            AddNotificationObserver();
             m_hook_CircleCollider2D = hookTransform.gameObject.GetComponent<CircleCollider2D>();
             m_hook_CircleCollider2D.enabled = false;
             m_player_CircleCollider2D = playerTransform.gameObject.GetComponent<CircleCollider2D>();
@@ -126,7 +127,7 @@ namespace William
             //Debug.Log("isHit Distance" + Vector3.Distance(playerTransform.position, m_hit_pos));
             if (Vector3.Distance(hookTransform.position, hookObj.transform.position) > totalDistance)
             {
-                Debug.Log("isOut = false;");
+                //Debug.Log("isOut = false;");
                 isOut = false;
                 m_hook_CircleCollider2D.enabled = false;
             }
@@ -176,7 +177,7 @@ namespace William
         private void BeHit(string result)
         {
             Debug.Log("BeHit = " + result);
-            
+            NotificationCenter.Default.Post(this, NotificationKeys.GameOver, result);
         }
 
 
@@ -204,6 +205,7 @@ namespace William
             {
                 //TO DO
                 //HitPlayer 
+                Debug.Log("HitPlayer");
                 BeHit((string)_noti.data);
             }
             if (_noti.name == "MoveSpeed")
@@ -212,6 +214,8 @@ namespace William
                 //MoveSpeed
                 //增加移動速度
                 //PlayerControll 去加速
+                Debug.Log("吃到加速");
+                m_PlayerControll.moveSpeed += 50;
             }
             if (_noti.name == "RopeSpeed")
             {
