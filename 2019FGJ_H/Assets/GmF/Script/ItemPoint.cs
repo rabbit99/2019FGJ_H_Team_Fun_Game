@@ -39,6 +39,8 @@ public class ItemPoint : MonoBehaviour
         newItem.SetActive(true);
         sampleItem.gameObject.SetActive(false);
         newItem.GetComponent<ItemBase>().OnDeath += ItemOnDeath;
+
+        newItem.gameObject.name += ItemManager.Instance.CreateItemCount;
     }
 
     void ItemOnDeath(ItemBase deathItem)

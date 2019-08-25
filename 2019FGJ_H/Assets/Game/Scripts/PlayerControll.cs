@@ -28,19 +28,28 @@ public class PlayerControll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tarAni = targetObj.GetComponent<Animator>();
+        if(targetObj != null)
+        {
+            tarAni = targetObj.GetComponent<Animator>();
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!m_PlayerMoveCondition())
-            return;
+        if (m_PlayerMoveCondition != null)
+        {
+            if (!m_PlayerMoveCondition())
+                return;
+        }
 
         switch (_MoveState)
         {
             case MoveState.idle:
-                tarAni.Play("Idle");
+                if(tarAni != null)
+                {
+                    tarAni.Play("Idle");
+                }
                 break;
             case MoveState.up:
                 transform.position += moveSpeed*transform.up * Time.fixedDeltaTime;

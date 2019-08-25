@@ -43,7 +43,7 @@ public class TriggerBase : MonoBehaviour
         OnTrigger();
     }
 
-    private void Update()
+    public virtual void Update()
     {
         if (TestOnTrigger)
         {
