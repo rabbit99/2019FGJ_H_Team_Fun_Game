@@ -29,6 +29,9 @@ namespace William
 
         private bool HookisBack = true;
 
+        // Hook sound effect - "POKA"
+        HookSoundEffect hookSoundEffect;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -38,6 +41,8 @@ namespace William
             m_PlayerControll.m_PlayerShoot = ShootHook;
 
             m_PlayerControll.m_PlayerMoveCondition = CheckSootingState;
+
+            hookSoundEffect = GetComponent<HookSoundEffect>();
         }
 
         // Update is called once per frame
@@ -60,6 +65,8 @@ namespace William
                 //Debug.Log("test");
                 hookTransform.Translate(0, hookSpeed * Time.deltaTime, 0);
                 hookObj.SetPosition(1, hookTransform.localPosition);
+
+                
             }
             //收回钩子
             else
@@ -146,6 +153,8 @@ namespace William
             isHit = true;
             isOut = false;
             m_player_CircleCollider2D.isTrigger = true;
+
+            hookSoundEffect.PlayRandomWhenHit();
         }
 
         private void ShootHook()
@@ -153,6 +162,8 @@ namespace William
             isOut = true;
             m_hook_CircleCollider2D.enabled = true;
             HookisBack = false;
+
+            hookSoundEffect.PlayRandomWhenThrow();
         }
 
         private bool CheckSootingState()
