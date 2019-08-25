@@ -25,6 +25,8 @@ public class ItemManager : MonoBehaviour
         {
             SampleItems[i].gameObject.SetActive(false);
         }
+
+        RegistItemMsg();
     }
 
     private void Update()
@@ -67,6 +69,30 @@ public class ItemManager : MonoBehaviour
 
         ItemBase sampleItem = SampleItems[Random.Range(0, SampleItems.Count)];
         newPoint.CreateItem(sampleItem);
+    }
+
+    ItemObserver itemObserver;
+
+    void RegistItemMsg()
+    {
+        if(itemObserver == null)
+        {
+            itemObserver = new ItemObserver();
+
+            string[] modifyEnumNames = System.Enum.GetNames(typeof(ModifyValueEnum));
+            for (int i = 0; i < modifyEnumNames.Length; i++)
+            {
+                NotificationCenter.Default.AddObserver(itemObserver, modifyEnumNames[i]);
+            }
+        }
+    }
+
+    public class ItemObserver : INotification
+    {
+        void INotification.OnNotify(Notification _noti)
+        {
+            Debug.Log("ItemManager.cs Get item msg: name[" + _noti.name + "], " + "data[" + _noti.data.ToString() + "], ");
+        }
     }
 
     //Vector3 RandomCreateItemPos()
