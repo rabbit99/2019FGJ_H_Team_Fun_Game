@@ -12,4 +12,5 @@ public static class NotificationKeys
     public const string HitPlayer = "HitPlayer";
     public const string GameOver = "GameOver";
 
+    public const string AudioEvnet = "AudioEvent";
 }
