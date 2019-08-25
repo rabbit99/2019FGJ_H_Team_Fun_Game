@@ -63,18 +63,18 @@ public class PlayerControll : MonoBehaviour
                 }
                 break;
             case MoveState.down:
-                transform.localPosition -= moveSpeed*transform.up * Time.fixedDeltaTime;
-                if (targetObj)
-                {
-                    if (transform.rotation.z > 0 && transform.rotation.z <= 180)
-                    {
-                        // tarAni.Play("run1");
-                    }
-                    else if (transform.rotation.z <= 0 && transform.rotation.z > -180)
-                    {
-                        // tarAni.Play("run2");
-                    }
-                }
+                //transform.localPosition -= moveSpeed*transform.up * Time.fixedDeltaTime;
+                //if (targetObj)
+                //{
+                //    if (transform.rotation.z > 0 && transform.rotation.z <= 180)
+                //    {
+                //        // tarAni.Play("run1");
+                //    }
+                //    else if (transform.rotation.z <= 0 && transform.rotation.z > -180)
+                //    {
+                //        // tarAni.Play("run2");
+                //    }
+                //}
                 break;
             default:
                 break;
