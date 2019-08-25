@@ -11,6 +11,10 @@ public class ItemBase : TriggerBase
     public float LifeTime = 5;
     private float overLifeTime = 0;
 
+    private AudioSource ItemAudioSource = null;
+    public AudioClip GetItemAudioClip = null;
+    public AudioClip CreateItemAudioClip = null;
+
     private void Awake()
     {
         modifyData = gameObject.GetComponent<ModifyValueBase>();
@@ -28,7 +32,13 @@ public class ItemBase : TriggerBase
         {
             gameObject.SetActive(false);
         }
-       
+
+        ItemAudioSource = gameObject.GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        PlayCreateItemAudio();
     }
 
     public override void Update()
@@ -68,5 +78,47 @@ public class ItemBase : TriggerBase
     {
         base.OnTrigger();
         Death();
+        PlayGetItemAudio();
+    }
+
+    void PlayGetItemAudio()
+    {
+        if (ItemAudioSource == null)
+        {
+            return;
+        }
+
+        if (GetItemAudioClip != null)
+        {
+            ItemAudioSource.clip = GetItemAudioClip;
+        }
+        else if (ItemManager.Instance != null && ItemManager.Instance.BasicGetItmeAudioClip != null)
+        {
+            ItemAudioSource.clip = ItemManager.Instance.BasicGetItmeAudioClip;
+        }
+        else
+        {
+            return;
+        }
+
+        ItemAudioSource.Play();
+    }
+
+    void PlayCreateItemAudio()
+    {
+        if (ItemAudioSource == null)
+        {
+            return;
+        }
+        if (ItemManager.Instance != null && ItemManager.Instance.BasicCreateItemAudioClip != null)
+        {
+            ItemAudioSource.clip = ItemManager.Instance.BasicCreateItemAudioClip;
+        }
+        if (CreateItemAudioClip != null)
+        {
+            ItemAudioSource.clip = CreateItemAudioClip;
+        }
+
+        ItemAudioSource.Play();
     }
 }
