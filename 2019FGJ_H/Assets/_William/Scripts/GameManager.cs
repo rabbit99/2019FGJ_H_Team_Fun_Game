@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour, INotification
     void Start()
     {
         AddNotificationObserver();
+        GameOverUI.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
