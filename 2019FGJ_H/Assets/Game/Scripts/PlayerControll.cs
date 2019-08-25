@@ -34,8 +34,11 @@ public class PlayerControll : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!m_PlayerMoveCondition())
-            return;
+        if (m_PlayerMoveCondition != null)
+        {
+            if (!m_PlayerMoveCondition())
+                return;
+        }
 
         switch (_MoveState)
         {
