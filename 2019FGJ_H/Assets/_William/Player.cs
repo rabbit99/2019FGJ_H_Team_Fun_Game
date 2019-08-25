@@ -30,6 +30,8 @@ namespace William
 
         private bool HookisBack = true;
 
+        private bool flag_hookBackSound = false;
+
         // Hook sound effect - "POKA"
         HookSoundEffect hookSoundEffect;
 
@@ -81,6 +83,7 @@ namespace William
                 else
                 {
                     HookisBack = true;
+                    
                 }
             }
 
@@ -130,6 +133,12 @@ namespace William
                 //Debug.Log("isOut = false;");
                 isOut = false;
                 m_hook_CircleCollider2D.enabled = false;
+                if (flag_hookBackSound)
+                {
+                    //Debug.Log("")
+                    NotificationCenter.Default.Post(this, NotificationKeys.AudioEvnet, "ReceiveRope");
+                    flag_hookBackSound = false;
+                }
             }
             if (Vector3.Distance(playerTransform.position, m_hit_pos) < stopDistance)
             {
@@ -162,6 +171,9 @@ namespace William
 
         private void ShootHook()
         {
+            NotificationCenter.Default.Post(this, NotificationKeys.AudioEvnet, "ShootRope");
+            flag_hookBackSound = true;
+
             isOut = true;
             m_hook_CircleCollider2D.enabled = true;
             HookisBack = false;
@@ -184,6 +196,7 @@ namespace William
             {
                 Debug.Log("BeHit = " + result);
                 NotificationCenter.Default.Post(this, NotificationKeys.GameOver, str_splitcontext[0]);
+                NotificationCenter.Default.Post(this, NotificationKeys.AudioEvnet, "hitEnemy");
             }
         }
 

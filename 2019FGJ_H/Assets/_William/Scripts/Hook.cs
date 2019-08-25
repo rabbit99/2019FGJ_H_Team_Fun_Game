@@ -23,13 +23,15 @@ public class Hook : MonoBehaviour
         if(collision.tag == "wood") 
         {
             m_player.Hit(collision.transform.position);
+            NotificationCenter.Default.Post(this, NotificationKeys.AudioEvnet, "HitWoodenPile");
         }
         if (collision.tag == "Player")
         {
             //TO DO
             //Attack this player
             //Debug.Log("打到 player "+ collision.name);
-            if(collision.name != m_player.playerTransform.gameObject.name)
+            //NotificationCenter.Default.Post(this, NotificationKeys.AudioEvnet, "hitEnemy");
+            if (collision.name != m_player.playerTransform.gameObject.name)
             NotificationCenter.Default.Post(this, NotificationKeys.HitPlayer, m_player.playerTransform.gameObject.name + "/" + collision.name);
         }
     }
