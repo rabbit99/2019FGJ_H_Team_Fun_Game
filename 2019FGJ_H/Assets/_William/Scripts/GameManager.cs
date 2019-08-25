@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour, INotification
@@ -35,12 +37,12 @@ public class GameManager : MonoBehaviour, INotification
         if (_noti.name == NotificationKeys.GameOver)
         {
             //TO DO
-            Debug.Log("GameOver");
+            Debug.Log("GameOver " + (string)_noti.data);
             if(GameOverUI != null)
+            {
                 GameOverUI.gameObject.SetActive(true);
-            Hook hook = (Hook)_noti.sender;
-            Debug.Log("sender = " + hook.m_player.playerTransform.gameObject.name + "  被打到的是"+(string)_noti.data);
-            
+                GameOverUI.SetWinnerText((string)_noti.data);
+            }
         }
     }
     #endregion
